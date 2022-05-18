@@ -5,7 +5,7 @@ import auth from '../../firebase.init';
 import { toast } from 'react-toastify';
 // import el from 'date-fns/esm/locale/el/index.js';
 
-const BookingModal = ({ treatment, date, setTreatment }) => {
+const BookingModal = ({ treatment, date, setTreatment, refetch }) => {
     const { _id, name, slots } = treatment
     const [user, loading, error] = useAuthState(auth);
     const formattedDate = format(date, 'PP')
@@ -23,7 +23,7 @@ const BookingModal = ({ treatment, date, setTreatment }) => {
             phone: event.target.phone.value
         }
 
-        fetch('http://localhost:5000/booking', {
+        fetch('https://shielded-beyond-83630.herokuapp.com/booking', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
@@ -38,6 +38,7 @@ const BookingModal = ({ treatment, date, setTreatment }) => {
                 else {
                     toast.error(`You already have an Appointment on ${data.booking?.date} at ${data.booking?.slot}`)
                 }
+                refetch()
                 setTreatment(null)
             })
     }
