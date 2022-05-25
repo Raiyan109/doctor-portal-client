@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 // import el from 'date-fns/esm/locale/el/index.js';
 
 const BookingModal = ({ treatment, date, setTreatment, refetch }) => {
-    const { _id, name, slots } = treatment
+    const { _id, name, slots, price } = treatment
     const [user, loading, error] = useAuthState(auth);
     const formattedDate = format(date, 'PP')
     const handleBooking = event => {
@@ -18,6 +18,7 @@ const BookingModal = ({ treatment, date, setTreatment, refetch }) => {
             treatment: name,
             date: formattedDate,
             slot,
+            price,
             patient: user.email,
             patientName: user.displayName,
             phone: event.target.phone.value
